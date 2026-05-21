@@ -549,47 +549,43 @@ const countdown = setInterval(function(){
 }, 1000);
 
 </script>
-<!-- ================= AUTO SCROLL SMOOTH ================= -->
+<!-- ================= AUTO SCROLL MOBILE FIX ================= -->
 
 <script>
 
-let autoScroll;
+let scrollSpeed = 0.7;
 
-window.addEventListener("load", () => {
+/* يبدأ بعد تحميل الصفحة */
 
-  /* يبدأ بعد ثانيتين */
+window.onload = () => {
 
   setTimeout(() => {
 
-    startAutoScroll();
+    smoothAutoScroll();
 
   }, 2000);
 
-});
+};
 
-function startAutoScroll(){
+function smoothAutoScroll(){
 
-  autoScroll = setInterval(() => {
+  /* يقف عند آخر الصفحة */
 
-    /* سرعة النزول */
+  if (
+    window.innerHeight + window.pageYOffset >=
+    document.body.scrollHeight - 2
+  ) {
+    return;
+  }
 
-    window.scrollBy({
-      top: 1.2,
-      behavior: "smooth"
-    });
+  /* حركة ناعمة جدًا */
 
-    /* يقف عند آخر الصفحة */
+  window.scrollTo(
+    0,
+    window.pageYOffset + scrollSpeed
+  );
 
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 2
-    ) {
-
-      clearInterval(autoScroll);
-
-    }
-
-  }, 15);
+  requestAnimationFrame(smoothAutoScroll);
 
 }
 
