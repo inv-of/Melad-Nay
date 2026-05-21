@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Melad&Nay Wedding Invitation</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#000;
+      font-family:'Cinzel', serif;
+      position:relative;
+      cursor:pointer;
+    }
+
+    /* ================= BACKGROUND IMAGE ================= */
+
+    .background{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      animation:fadeBackground 2s ease;
+    }
+
+    /* ================= OVERLAY ================= */
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.12);
+      z-index:1;
+    }
+
+    /* ================= CONTENT ================= */
+
+    .content{
+      position:relative;
+      z-index:2;
+      text-align:center;
+    }
+
+    /* ================= TITLE ================= */
+
+    .title{
+      color:#fff;
+      font-size:24px;
+      letter-spacing:5px;
+      margin-top:35px;
+
+      opacity:0;
+      animation:fadeText 2s ease forwards;
+      animation-delay:0.5s;
+
+      text-shadow:
+        0 0 10px rgba(0,0,0,0.8),
+        0 0 25px rgba(0,0,0,0.5);
+    }
+
+    /* ================= INVITATION IMAGE ================= */
+
+    .invitation{
+      width:70%;
+      max-width:260px;
+      animation:
+        floatInvitation 4s ease-in-out infinite,
+        fadeInvitation 2s ease;
+
+      transition:0.45s ease;
+
+      filter:
+        drop-shadow(0 10px 25px rgba(0,0,0,0.35));
+    }
+
+    /* Hover */
+
+    .invitation:hover{
+      transform:scale(1.03);
+    }
+
+    /* Click Effect */
+
+    .clicked .invitation{
+
+      transform:scale(1.08);
+
+      filter:
+        drop-shadow(0 0 15px rgba(255,215,120,0.9))
+        drop-shadow(0 0 35px rgba(255,215,120,0.45));
+
+    }
+
+    /* ================= ANIMATIONS ================= */
+
+    @keyframes fadeBackground{
+
+      from{
+        opacity:0;
+        transform:scale(1.03);
+      }
+
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+
+    }
+
+    @keyframes fadeInvitation{
+
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+    }
+
+    @keyframes fadeText{
+
+      from{
+        opacity:0;
+        transform:translateY(15px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+    }
+
+    @keyframes floatInvitation{
+
+      0%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-10px);
+      }
+
+      100%{
+        transform:translateY(0px);
+      }
+
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media(max-width:768px){
+
+      .invitation{
+        max-width:220px;
+      }
+
+      .title{
+        font-size:18px;
+        letter-spacing:3px;
+        margin-top:25px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body id="page">
+  <!-- Background Music -->
+
+<audio id="bgMusic" loop playsinline preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+  const music = document.getElementById("bgMusic");
+  const page = document.getElementById("page");
+
+  let started = false;
+
+  function startExperience() {
+
+    if(started) return;
+
+    started = true;
+
+    /* تشغيل الصوت */
+
+    music.volume = 1;
+
+    music.play().catch(() => {});
+
+    /* تأثير الانتقال */
+
+    page.classList.add("clicked");
+
+    /* الانتقال للصفحة */
+
+    setTimeout(() => {
+
+      window.location.href = "main.html";
+
+    }, 400);
+
+  }
+
+  /* موبايل + واتساب */
+
+  document.addEventListener("click", startExperience);
+  document.addEventListener("touchstart", startExperience);
+
+</script>
+
+  <!-- Background Image -->
+
+  <img src="invitation.jpg" class="background" alt="Invitation Background">
+
+  <!-- Overlay -->
+
+  <div class="overlay"></div>
+
+  <!-- Content -->
+
+  
+    
+
+    <!-- Title -->
+
+    
+  </div>
+
+  <!-- Script -->
+
+  
+
+</body>
+</html>
