@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Melad & Nay Wedding Invitation</title>
 
-<!-- Elegant Fonts -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -15,7 +15,6 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  scroll-behavior:smooth;
 }
 
 body{
@@ -23,7 +22,6 @@ body{
   color:#7B5B45;
   overflow-x:hidden;
   overflow-y:auto;
-
   font-family:'Cinzel', serif;
   position:relative;
 }
@@ -150,6 +148,9 @@ iframe{
   width:100%;
   height:450px;
   border:0;
+
+  /* مهم للموبايل */
+  pointer-events:none;
 }
 
 /* ================= RSVP ================= */
@@ -267,9 +268,10 @@ iframe{
   transform:translateY(-5px) scale(1.03);
 }
 
-/* ================= ANIMATIONS ================= */
+/* ================= ANIMATION ================= */
 
 @keyframes pulse{
+
   0%{
     transform:scale(0.9);
     opacity:0.25;
@@ -284,6 +286,7 @@ iframe{
     transform:scale(1.1);
     opacity:0;
   }
+
 }
 
 /* ================= MOBILE ================= */
@@ -361,8 +364,6 @@ iframe{
 
 const music = document.getElementById("bgMusic");
 
-/* تشغيل تلقائي */
-
 window.addEventListener("load", () => {
 
   const playPromise = music.play();
@@ -370,8 +371,6 @@ window.addEventListener("load", () => {
   if(playPromise !== undefined){
 
     playPromise.catch(() => {
-
-      /* fallback للموبايل و واتساب */
 
       document.addEventListener("click", startMusic, { once:true });
       document.addEventListener("touchstart", startMusic, { once:true });
@@ -390,7 +389,7 @@ function startMusic(){
 
 </script>
 
-<!-- ================= HERO SECTION ================= -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 </section>
@@ -510,7 +509,7 @@ function startMusic(){
 
 </section>
 
-<!-- ================= COUNTDOWN SCRIPT ================= -->
+<!-- ================= COUNTDOWN ================= -->
 
 <script>
 
@@ -542,55 +541,48 @@ const countdown = setInterval(function(){
   document.getElementById("minutes").innerHTML = minutes;
   document.getElementById("seconds").innerHTML = seconds;
 
-  if(distance < 0){
-    clearInterval(countdown);
-  }
-
 }, 1000);
 
 </script>
-<!-- ================= AUTO SCROLL MOBILE FIX ================= -->
+
+<!-- ================= AUTO SCROLL ================= -->
 
 <script>
 
-let scrollSpeed = 0.7;
-
-/* يبدأ بعد تحميل الصفحة */
-
-window.onload = () => {
+window.addEventListener("load", () => {
 
   setTimeout(() => {
 
-    smoothAutoScroll();
+    startAutoScroll();
 
   }, 2000);
 
-};
+});
 
-function smoothAutoScroll(){
+function startAutoScroll(){
 
-  /* يقف عند آخر الصفحة */
+  const auto = setInterval(() => {
 
-  if (
-    window.innerHeight + window.pageYOffset >=
-    document.body.scrollHeight - 2
-  ) {
-    return;
-  }
+    window.scrollBy(0, 1);
 
-  /* حركة ناعمة جدًا */
+    if(
 
-  window.scrollTo(
-    0,
-    window.pageYOffset + scrollSpeed
-  );
+      window.innerHeight + window.pageYOffset >=
+      document.documentElement.scrollHeight - 2
 
-  requestAnimationFrame(smoothAutoScroll);
+    ){
+
+      clearInterval(auto);
+
+    }
+
+  }, 18);
 
 }
 
 </script>
-<!-- ================= RSVP SCRIPT ================= -->
+
+<!-- ================= RSVP ================= -->
 
 <script>
 
@@ -605,7 +597,7 @@ async function sendRSVP(status){
 
   }
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwlU0Ae4OHzfBnl2WSi2Cyoyk7NXdU2x1GoEOXZgv5VDToDc5-MyxeX68_aP-EFOcxuhg/exec";
+  const scriptURL = "YOUR_GOOGLE_SCRIPT_LINK";
 
   const formData = new FormData();
 
@@ -615,8 +607,8 @@ async function sendRSVP(status){
   try{
 
     await fetch(scriptURL, {
-      method: "POST",
-      body: formData
+      method:"POST",
+      body:formData
     });
 
     document
