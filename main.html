@@ -597,7 +597,7 @@ async function sendRSVP(status){
 
   }
 
-  const scriptURL = "YOUR_GOOGLE_SCRIPT_LINK";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxhwCnLmpbZ2-8WvkhRaifbN7eCTWSEyB8BPmixUSrrudva6B7QSoAPIyvSAO2K_ffmOg/exec";
 
   const formData = new FormData();
 
@@ -607,10 +607,10 @@ async function sendRSVP(status){
   try{
 
     await fetch(scriptURL, {
-      method:"POST",
-      body:formData
-    });
-
+  method:"POST",
+  body:formData,
+  mode:"no-cors"
+});
     document
       .getElementById("successMessage")
       .classList.add("show");
